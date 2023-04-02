@@ -11,11 +11,12 @@ import {
     Menu,
     MenuItem,
  } from '@mui/material';
- import { MoreVert } from '@mui/icons-material';
+import Link from 'next/link';
+import { MoreVert } from '@mui/icons-material';
 import useCustomers from '~/modules/customers/hooks/useCustomers';
 import useDeleteCustomer from '~/modules/customers/hooks/useDeleteCustomer';
 
-interface CustomerTableProps {   
+interface CustomerTableProps {
 }
   
 const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) => {
@@ -70,6 +71,16 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
+                  <MenuItem>
+                    <Link href={`/customers/edit/${customerId}`}>
+                      Edit
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                     <Link href={`/customers/${customerId}`}>
+                     Details
+                     </Link>
+                  </MenuItem>
                   <MenuItem onClick={async () => {
                     const payload = await onDelete({ id: customerId });
                     if (payload.id) {

@@ -1,1 +1,1 @@
-export { default } from '~/modules/customers/pages/Edit';
+export { default } from '~/modules/customers/pages/Show';

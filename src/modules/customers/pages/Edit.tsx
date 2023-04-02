@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import {Box, Modal } from '@mui/material';
+import Layout from '~/components/Layout';
 import EditForm from '~/modules/customers/components/EditForm';
 import useCustomer from '~/modules/customers/hooks/useCustomer';
 interface Props {
@@ -29,7 +30,7 @@ const Edit: NextPage<Props> = (props: Props) => {
         return <>loading</>
     }
     if (customer) {
-        return (<>
+        return (<Layout>
     <Modal
         open={open}
         onClose={handleClose}
@@ -40,7 +41,7 @@ const Edit: NextPage<Props> = (props: Props) => {
             <EditForm onCloseModal={handleClose} customer={customer} title="Edit customer" />
         </Box>
     </Modal>
-        </>);
+        </Layout>);
     }
     return <>Error undefined</>
 };

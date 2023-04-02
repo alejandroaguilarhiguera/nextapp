@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import {Box, Modal } from '@mui/material';
 import NewForm from '~/modules/customers/components/NewForm';
+import Layout from '~/components/Layout';
 
 const style = {
   position: 'absolute',
@@ -23,7 +24,7 @@ const Add: NextPage<Props> = (props: Props) => {
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    return (<>
+    return (<Layout>
     <Modal
         open={open}
         onClose={handleClose}
@@ -34,7 +35,7 @@ const Add: NextPage<Props> = (props: Props) => {
             <NewForm onCloseModal={handleClose} title="New customer" />
         </Box>
     </Modal>
-    </>);
+    </Layout>);
 };
 
 export default Add;

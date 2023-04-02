@@ -1,30 +1,20 @@
-import axios from 'axios';
-
-// export let store: RootStore;
-
-// export const injectStore = (_store: RootStore): void => {
-//   store = _store;
-// };
+import axios, { AxiosError } from 'axios';
+import { PayloadError } from '~/types';
+import getSession from '~/utils/getSession';
 
 const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
-axiosInstance.interceptors.request.use(
-  async (config) => {
-    // const { auth } = store.getState();
-    // TODO: add configuration accessToken
-    // if (auth.accessToken !== null) {
-    //   config.headers = {
-    //     Authorization: `Bearer ${auth.accessToken}`
-    //   };
-    // } else {
-    //   delete config?.headers?.Authorization;
-    // }
-
+axiosInstance.interceptors.request.use((config: any) => {
+    if (!window) return;
+    const session = getSession();
+    if (session?.jwt) {
+      config.headers.Authorization = `Bearer ${session?.jwt}`;
+    }
     return config;
   },
   (error) => {
-    Promise.reject(error);
+    return error;
   }
 );
 

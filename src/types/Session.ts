@@ -1,6 +1,15 @@
 export interface Session {
-    token: string,
+    jwt: string;
     user: {
-        email: string,
+        id: number;
+        name: string;
+        lastname: string;
+        username: string | null;
+        email: string;
+        provider: 'local';
+        confirmed: true;
+        blocked: boolean;
+        createdAt: Date | string;
+        updatedAt: Date | string;
     }
 }

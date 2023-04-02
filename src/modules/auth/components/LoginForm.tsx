@@ -10,17 +10,16 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
 
   return (
     <form onSubmit={onSubmit}>
-
     <FormGroup>
       <Grid container spacing={2}>
         <Grid item xs={12}>
         <TextField
-            {...register('email')}
-            id="email"
+            {...register('identifier')}
+            id="identifier"
             label="Email"
             type="email"
-            error={!!errors.email?.message}
-            helperText={errors.email?.message}
+            error={!!errors.identifier?.message}
+            helperText={errors.identifier?.message}
           />
         </Grid>
         <Grid item xs={12}>
@@ -39,7 +38,6 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
       </Grid>
     </FormGroup>
     </form>
-
   )
 };
 

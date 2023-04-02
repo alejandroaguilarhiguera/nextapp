@@ -5,6 +5,6 @@ export interface ValidationError {
 }
 export interface ErrorRequest {
   message: string;
-  validationCode?: 422;
+  status?: number;
   validationErrors?: ValidationError[];
 }
