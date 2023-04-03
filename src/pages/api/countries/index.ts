@@ -1,20 +1,14 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorRequest, Country, Payload } from '~/types';
-interface CountryAPI {
-    id: number;
-    attributes: {
-        name: string;
-        createdAt: Date | string;
-        updatedAt: Date | string;
-    }
-}
+import { ErrorRequest, Country } from '~/types';
+import { Payload } from '~/services/types';
+import { CountryAPI } from '~/services/types';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Country[] | ErrorRequest>
 ) {
-  const { URL_API } = process.env;
+  const { URL_API: url } = process.env;
 
   if (req.method !== 'GET') {
     return res.status(405).json({
@@ -22,9 +16,9 @@ export default async function handler(
     });
   }
   const { data: { data } } = await axios<Payload<CountryAPI[]>>({
-    url: `${URL_API}/countries`
+    url: `${url}/countries`
   });
-  const countries: Country[] = data?.map(({ id, attributes: { name }}) => ({ id, name }))
+  const countries: Country[] = data?.map(({ id, attributes: { name }}) => ({ id, name }));
 
   return res.status(200).json(countries);
 

@@ -12,8 +12,10 @@ export const useAddCustomer = () => {
         resolver: yupResolver(schema),
     });
     const onSubmit = async (data: NewCustomer) => {
+        const { method, path } = API_REQUEST_ADD_CUSTOMERS;
         const newCustomer = await request<NewCustomer>({
-            ...API_REQUEST_ADD_CUSTOMERS,
+            method,
+            url: path,
             data,
         });
         return newCustomer;

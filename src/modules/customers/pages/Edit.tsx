@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import {Box, Modal } from '@mui/material';
+import { Box, Modal } from '@mui/material';
 import Layout from '~/components/Layout';
 import EditForm from '~/modules/customers/components/EditForm';
 import useCustomer from '~/modules/customers/hooks/useCustomer';

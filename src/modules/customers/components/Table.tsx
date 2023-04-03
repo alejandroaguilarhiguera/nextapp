@@ -12,6 +12,7 @@ import {
     MenuItem,
  } from '@mui/material';
 import Link from 'next/link';
+import { mutate } from 'swr';
 import { MoreVert } from '@mui/icons-material';
 import useCustomers from '~/modules/customers/hooks/useCustomers';
 import useDeleteCustomer from '~/modules/customers/hooks/useDeleteCustomer';
@@ -30,7 +31,7 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
   };
   const { customers } = useCustomers();
   const { onDelete } = useDeleteCustomer();
-  return (
+  return (<>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -64,35 +65,37 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
               </TableCell>
             </TableRow>
           ))}
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem>
-                    <Link href={`/customers/edit/${customerId}`}>
-                      Edit
-                    </Link>
-                  </MenuItem>
-                  <MenuItem>
-                     <Link href={`/customers/${customerId}`}>
-                     Details
-                     </Link>
-                  </MenuItem>
-                  <MenuItem onClick={async () => {
-                    const payload = await onDelete({ id: customerId });
-                    if (payload.id) {
-                      // TODO: Re-render
-                    }
-                    }}>
-                     Delete
-                  </MenuItem>
-                </Menu>
         </TableBody>
       </Table>
     </TableContainer>
+    <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      <MenuItem>
+        <Link href={`/customers/edit/${customerId}`}>
+          Edit
+        </Link>
+      </MenuItem>
+      <MenuItem>
+         <Link href={`/customers/${customerId}`}>
+         Details
+         </Link>
+      </MenuItem>
+      <MenuItem onClick={async () => {
+        setAnchorEl(null);
+        const payload = await onDelete({ id: customerId });
+        if (payload.id) {
+          mutate('/customers', customers?.filter(({id}) => id !== payload.id) ,false)
+        }
+        }}>
+         Delete
+      </MenuItem>
+    </Menu>
+  </>
   )
 };
 

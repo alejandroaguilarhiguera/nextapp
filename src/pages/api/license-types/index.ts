@@ -1,6 +1,7 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorRequest, Payload } from '~/types';
+import { ErrorRequest } from '~/types';
+import { Payload } from '~/services/types';
 import { LicenseType } from '~/modules/customers/types';
 
 interface LicenseTypeAPI {
@@ -16,7 +17,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<LicenseType[] | ErrorRequest>
 ) {
-  const { URL_API } = process.env;
+  const { URL_API: url } = process.env;
 
   if (req.method !== 'GET') {
     return res.status(405).json({
@@ -24,7 +25,7 @@ export default async function handler(
     });
   }
   const { data: { data } } = await axios<Payload<LicenseTypeAPI[]>>({
-    url: `${URL_API}/license-types`
+    url: `${url}/license-types`
   });
   const licenseType: LicenseType[] = data?.map(({ id, attributes: { name }}) => ({ id, name }))
 

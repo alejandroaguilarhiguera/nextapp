@@ -3,9 +3,9 @@ import { Group, Manager, LicenseType } from '~/modules/customers/types';
 export interface Customer {
     id: number;
     name: string;
-    middleName: string;
-    lastName: string;
-    shortName: string;
+    middleName: string | null;
+    lastName: string | null;
+    shortName: string | null;
     countryId: number;
     country: Country;
     groupId: number;
@@ -14,7 +14,7 @@ export interface Customer {
     managerRelationship: Manager;
     licenseTypeId: number;
     licenseType: LicenseType;
-    mappingId: string;
+    mappingId: string | null;
     status: string;
 }
 

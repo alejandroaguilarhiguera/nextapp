@@ -16,8 +16,10 @@ export const useDoLogin = () => {
         resolver: yupResolver(schema),
     });
     const onSubmit = async (data: Login) => {
+        const { path, method } = API_AUTH_LOGIN;
         const session = await request<Session>({
-            ...API_AUTH_LOGIN,
+            url: path,
+            method,
             data,
         });
         localStorage.setItem('session', JSON.stringify(session));

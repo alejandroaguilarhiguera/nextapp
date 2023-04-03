@@ -6,9 +6,9 @@ import { API_REQUEST_SHOW_CUSTOMERS } from '~/config/routes';
 
 export const useCustomer = (id: number) => {
     const { data: customer, isLoading } = useSWR(`/customers/${id}`, async () => {
-        const { url, method } = API_REQUEST_SHOW_CUSTOMERS;
+        const { path, method } = API_REQUEST_SHOW_CUSTOMERS;
         const customer = await request<Customer>({
-            url: url.replace(':id', id.toString()),
+            url: path.replace(':id', id.toString()),
             method,
         });
         return customer;

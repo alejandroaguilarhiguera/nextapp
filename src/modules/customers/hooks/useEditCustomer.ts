@@ -18,10 +18,10 @@ export const useEditCustomer = (customer: Customer) => {
         resolver: yupResolver(schema),
     });
     const onSubmit = async (data: EditCustomer) => {
-        const { url } = API_REQUEST_EDIT_CUSTOMERS; 
+        const { path } = API_REQUEST_EDIT_CUSTOMERS; 
         const newCustomer = await request<EditCustomer>({
             ...API_REQUEST_EDIT_CUSTOMERS,
-            url: url.replace(':id', data.id.toString()),
+            url: path.replace(':id', data.id.toString()),
             data,
         });
         return newCustomer;
