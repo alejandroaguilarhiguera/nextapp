@@ -1,4 +1,4 @@
 export interface Manager {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }

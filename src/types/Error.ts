@@ -1,7 +1,7 @@
 export interface ValidationError {
-    message: string;
-    field: string;
-    value: string;
+  message: string;
+  field: string;
+  value: string;
 }
 export interface ErrorRequest {
   message: string;

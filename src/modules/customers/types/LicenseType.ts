@@ -1,4 +1,4 @@
 export interface LicenseType {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 }

@@ -1,18 +1,21 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import { ErrorRequest, PayloadError } from '~/types';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { Customer } from '~/modules/customers/types';
 import { CustomerAPI, Payload } from '~/services/types';
 
+import { ErrorRequest, PayloadError } from '~/types';
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Customer | Customer[] | ErrorRequest | PayloadError>
+  res: NextApiResponse<Customer | Customer[] | ErrorRequest | PayloadError>,
 ) {
   const { URL_API: url } = process.env;
   const { authorization } = req.headers;
   const id = req.query.id as string;
-  
-  const { data: { data } } = await axios<Payload<CustomerAPI>>({
+
+  const {
+    data: { data },
+  } = await axios<Payload<CustomerAPI>>({
     url: `${url}/customers/${id}`,
     method: 'PUT',
     headers: { Authorization: authorization },
@@ -26,12 +29,12 @@ export default async function handler(
     lastName: data.attributes.lastName,
     shortName: data.attributes.shortName,
     countryId: 1,
-    country: { id: 1, name: ''},
-    group: { id: 1, name: 'group'},
+    country: { id: 1, name: '' },
+    group: { id: 1, name: 'group' },
     managerRelationshipId: 1,
-    managerRelationship: { id: 1, name: ''},
+    managerRelationship: { id: 1, name: '' },
     licenseTypeId: 1,
-    licenseType: { id: 1, name: 'Pro'},
+    licenseType: { id: 1, name: 'Pro' },
     mappingId: data.attributes.mappingId,
     status: '123',
   };

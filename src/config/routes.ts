@@ -1,29 +1,29 @@
 export const API_AUTH_LOGIN = {
-    path: '/auth/login',
-    method: 'post'
+  path: '/auth/login',
+  method: 'post',
 };
 
 export const API_REQUEST_GET_CUSTOMERS = {
-    path: '/customers',
-    method: 'get'
+  path: '/customers',
+  method: 'get',
 };
 
 export const API_REQUEST_SHOW_CUSTOMERS = {
-    path: '/customers/:id',
-    method: 'get'
+  path: '/customers/:id',
+  method: 'get',
 };
 
 export const API_REQUEST_ADD_CUSTOMERS = {
-    path: '/customers',
-    method: 'post'
+  path: '/customers',
+  method: 'post',
 };
 
 export const API_REQUEST_EDIT_CUSTOMERS = {
-    path: '/customers/:id',
-    method: 'put'
+  path: '/customers/:id',
+  method: 'put',
 };
 
 export const API_REQUEST_DELETE_CUSTOMERS = {
-    path: '/customers/:id',
-    method: 'delete'
+  path: '/customers/:id',
+  method: 'delete',
 };

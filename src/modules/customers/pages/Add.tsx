@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { Box, Modal } from '@mui/material';
 import { NextPage } from 'next';
-import {Box, Modal } from '@mui/material';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import NewForm from '~/modules/customers/components/NewForm';
+
 import Layout from '~/components/Layout';
 
 const style = {
@@ -16,26 +18,30 @@ const style = {
   p: 4,
 };
 
-interface Props {
-
-}
+interface Props {}
 
 const Add: NextPage<Props> = (props: Props) => {
-    const [open, setOpen] = useState(true);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    return (<Layout>
-    <Modal
+  const router = useRouter();
+  const [open, setOpen] = useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  useEffect(() => {
+    !open && router.back();
+  }, [open]);
+  return (
+    <Layout>
+      <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-    >
+      >
         <Box sx={style}>
-            <NewForm onCloseModal={handleClose} title="New customer" />
+          <NewForm onCloseModal={handleClose} title="New customer" />
         </Box>
-    </Modal>
-    </Layout>);
+      </Modal>
+    </Layout>
+  );
 };
 
 export default Add;

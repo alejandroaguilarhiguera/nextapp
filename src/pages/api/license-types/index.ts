@@ -1,8 +1,9 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { ErrorRequest } from '~/types';
-import { Payload } from '~/services/types';
 import { LicenseType } from '~/modules/customers/types';
+import { Payload } from '~/services/types';
+
+import { ErrorRequest } from '~/types';
 
 interface LicenseTypeAPI {
   id: number;
@@ -10,12 +11,12 @@ interface LicenseTypeAPI {
     name: string;
     createdAt: Date | string;
     updatedAt: Date | string;
-  }
+  };
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<LicenseType[] | ErrorRequest>
+  res: NextApiResponse<LicenseType[] | ErrorRequest>,
 ) {
   const { URL_API: url } = process.env;
 
@@ -24,11 +25,12 @@ export default async function handler(
       message: 'Method not allowed',
     });
   }
-  const { data: { data } } = await axios<Payload<LicenseTypeAPI[]>>({
-    url: `${url}/license-types`
+  const {
+    data: { data },
+  } = await axios<Payload<LicenseTypeAPI[]>>({
+    url: `${url}/license-types`,
   });
-  const licenseType: LicenseType[] = data?.map(({ id, attributes: { name }}) => ({ id, name }))
+  const licenseType: LicenseType[] = data?.map(({ id, attributes: { name } }) => ({ id, name }));
 
   return res.status(200).json(licenseType);
-
 }
