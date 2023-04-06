@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -22,11 +23,16 @@ export const useDoLogin = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = async (data: Login) => {
-    const { path, method } = API_AUTH_LOGIN;
-    const session = await request<Session>({
-      url: path,
-      method,
-      data,
+    // const { path, method } = API_AUTH_LOGIN;
+    // const session = await request<Session>({
+    //   url: path,
+    //   method,
+    //   data,
+    // });
+    const session: any = signIn('credentials', {
+      ...data,
+      redirect: true,
+      callbackUrl: '/customers',
     });
     localStorage.setItem('session', JSON.stringify(session));
     mutate('session', session);

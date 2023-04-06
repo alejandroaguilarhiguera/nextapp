@@ -3,7 +3,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MuiAppBar, { AppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -17,6 +17,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { styled, useTheme } from '@mui/material/styles';
+import { signIn, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 import useSWR from 'swr';
 
@@ -74,9 +77,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
-  const { data: session } = useSWR<Session>('session');
-  const fullName = [session?.user.name, session?.user.lastname].join(' ') ?? '';
-
+  const { data: session, status } = useSession();
+  const email = session?.user?.email ?? '';
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -103,7 +105,7 @@ const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            {fullName}
+            {email} {status}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -128,31 +130,43 @@ const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
         <Divider />
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => signIn()}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={'Dashboard'} />
+              <ListItemText primary={'Login'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <Link href={'/dashboard'}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Dashboard'} />
+              </Link>
             </ListItemButton>
           </ListItem>
 
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Customers'} />
+              <Link href={'/customers'}>
+                <ListItemIcon>
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary={'Customers'} />
+              </Link>
             </ListItemButton>
           </ListItem>
         </List>
         <Divider />
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => signOut({ callbackUrl: '/auth/login' })}>
               <ListItemIcon>
                 <MailIcon />
               </ListItemIcon>
-              <ListItemText primary={'Other section'} />
+              <ListItemText primary={'Log out'} />
             </ListItemButton>
           </ListItem>
         </List>

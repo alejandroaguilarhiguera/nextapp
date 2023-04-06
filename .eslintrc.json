@@ -24,7 +24,10 @@
     "@typescript-eslint"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", {
+        "endOfLine": "auto"
+      }
+    ],
     "@typescript-eslint/no-floating-promises": "off",
     "react/react-in-jsx-scope": "off",
     "react-hooks/exhaustive-deps": "off"

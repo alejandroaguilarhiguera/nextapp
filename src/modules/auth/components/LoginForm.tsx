@@ -1,4 +1,4 @@
-import { Button, FormGroup, Grid, TextField } from '@mui/material';
+import { Button, FormGroup, Grid, Paper, TextField } from '@mui/material';
 import React from 'react';
 import useDoLogin from '~/modules/auth/hooks/useDoLogin';
 
@@ -10,33 +10,37 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
   return (
     <form onSubmit={onSubmit}>
       <FormGroup>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              {...register('identifier')}
-              id="identifier"
-              label="Email"
-              type="email"
-              error={!!errors.identifier?.message}
-              helperText={errors.identifier?.message}
-            />
+        <Paper style={{ padding: 40 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                {...register('identifier')}
+                id="identifier"
+                label="Email"
+                type="email"
+                error={!!errors.identifier?.message}
+                helperText={errors.identifier?.message}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                {...register('password')}
+                id="password"
+                label="Password"
+                type="password"
+                error={!!errors.password?.message}
+                helperText={errors.password?.message}
+              />
+            </Grid>
+            <Grid item>
+              <Button fullWidth type="submit" variant="contained">
+                Enter
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              {...register('password')}
-              id="password"
-              label="Password"
-              type="password"
-              error={!!errors.password?.message}
-              helperText={errors.password?.message}
-            />
-          </Grid>
-          <Grid item>
-            <Button type="submit" variant="contained">
-              Enter
-            </Button>
-          </Grid>
-        </Grid>
+        </Paper>
       </FormGroup>
     </form>
   );

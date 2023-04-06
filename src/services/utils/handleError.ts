@@ -25,8 +25,9 @@ export default function handleError(req: NextApiRequest, res: NextApiResponse, e
     } else if (Number(status) >= 500) {
       console.error('External api unexpected error');
       message = 'Unexpected error';
+    } else {
+      console.log('response undefined ', axiosError.response?.data);
     }
-    console.log('response =====> ', axiosError.response?.data);
   } else {
     console.error('Internal unexpected error');
   }
