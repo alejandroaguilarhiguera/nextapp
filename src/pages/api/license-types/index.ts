@@ -1,9 +1,8 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ErrorRequest } from 'types';
 import { LicenseType } from '~/modules/customers/types';
 import { Payload } from '~/services/types';
-
-import { ErrorRequest } from '~/types';
 
 interface LicenseTypeAPI {
   id: number;

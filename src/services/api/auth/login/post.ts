@@ -1,9 +1,8 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ErrorRequest, PayloadError, Session } from 'types';
 import { API_AUTH_LOGIN } from '~/config/routes';
 import { SessionAPI } from '~/services/types';
-
-import { ErrorRequest, PayloadError, Session } from '~/types';
 
 export default async function handler(
   req: NextApiRequest,

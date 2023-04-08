@@ -4,13 +4,12 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { mutate } from 'swr';
+import { Session } from 'types';
 import { API_AUTH_LOGIN } from '~/config/routes';
 import Login from '~/modules/auth/types/Login';
 import schema from '~/modules/auth/utils/loginSchema';
 
 import request from '~/utils/request';
-
-import { Session } from '~/types';
 
 export const useDoLogin = () => {
   const { push } = useRouter();

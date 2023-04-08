@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { PayloadError } from 'types';
 import { Customer } from '~/modules/customers/types';
 import deleteMethod from '~/services/api/customers/delete';
 import get from '~/services/api/customers/get';
@@ -7,8 +8,6 @@ import put from '~/services/api/customers/put';
 import { Methods } from '~/services/types';
 import handleError from '~/services/utils/handleError';
 import methodNotAllowed from '~/services/utils/methodNotAllowed';
-
-import { PayloadError } from '~/types/';
 
 const methods: Methods = {
   post,

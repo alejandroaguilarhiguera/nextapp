@@ -1,18 +1,14 @@
-import axios, { AxiosError } from 'axios';
-
-import getSession from '~/utils/getSession';
-
-import { PayloadError } from '~/types';
+import axios from 'axios';
+import { getSession } from 'next-auth/react';
 
 const axiosInstance = axios.create();
 
 axiosInstance.defaults.baseURL = process.env.NEXT_PUBLIC_URL_API;
 axiosInstance.interceptors.request.use(
-  (config: any) => {
-    if (!window) return;
-    const session = getSession();
-    if (session?.jwt) {
-      config.headers.Authorization = `Bearer ${session?.jwt}`;
+  async (config) => {
+    const session = await getSession();
+    if (session?.token) {
+      config.headers.Authorization = `Bearer ${session.token}`;
     }
     return config;
   },

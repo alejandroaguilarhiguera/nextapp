@@ -1,9 +1,8 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { ErrorRequest, PayloadError } from 'types';
 import { Customer } from '~/modules/customers/types';
 import { CustomerAPI, Payload } from '~/services/types';
-
-import { ErrorRequest, PayloadError } from '~/types';
 
 export default async function handler(
   req: NextApiRequest,

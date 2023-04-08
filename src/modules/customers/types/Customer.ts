@@ -1,6 +1,5 @@
+import { Country } from 'types';
 import { Group, LicenseType, Manager } from '~/modules/customers/types';
-
-import { Country } from '~/types';
 
 export interface Customer {
   id: number;

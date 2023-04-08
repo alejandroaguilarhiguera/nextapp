@@ -11,6 +11,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 import { mutate } from 'swr';
@@ -20,6 +21,7 @@ import useDeleteCustomer from '~/modules/customers/hooks/useDeleteCustomer';
 interface CustomerTableProps {}
 
 const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) => {
+  const { data: session, status } = useSession();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [customerId, setCustomerId] = React.useState<number>(0);
   const handleClose = () => {
