@@ -1,5 +1,4 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { API_REQUEST_ADD_CUSTOMERS } from '~/config/routes';
 import { NewCustomer } from '~/modules/customers/types';
@@ -11,6 +10,7 @@ export const useAddCustomer = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<NewCustomer>({
     criteriaMode: 'all',
@@ -27,6 +27,7 @@ export const useAddCustomer = () => {
   };
 
   return {
+    getValues,
     register,
     handleSubmit,
     errors,

@@ -11,13 +11,12 @@ export default async function handler(
   const { URL_API: url } = process.env;
   const { authorization } = req.headers;
   const id = req.query.id as string;
-
   if (id) {
     const {
       data: { data },
     } = await axios<Payload<CustomerAPI>>({
       method: 'GET',
-      url: `${url}/customers/${id}`,
+      url: `${url}/customers/${id}?populate=country`,
       headers: { Authorization: authorization },
     });
     const customer: Customer = {
@@ -27,8 +26,11 @@ export default async function handler(
       middleName: data.attributes.middleName,
       lastName: data.attributes.lastName,
       shortName: data.attributes.shortName,
-      countryId: 1,
-      country: { id: 1, name: '' },
+      countryId: data.attributes.country.data.id,
+      country: {
+        id: data.attributes.country.data.id,
+        name: data.attributes.country.data.attributes.name,
+      },
       group: { id: 1, name: 'group' },
       managerRelationshipId: 1,
       managerRelationship: { id: 1, name: '' },
@@ -43,7 +45,7 @@ export default async function handler(
     data: { data },
   } = await axios<Payload<CustomerAPI[]>>({
     method: 'GET',
-    url: `${url}/customers`,
+    url: `${url}/customers?populate=country`,
     headers: { Authorization: authorization },
   });
   const customers: Customer[] = data.map((customer) => ({
@@ -53,8 +55,11 @@ export default async function handler(
     middleName: customer.attributes.middleName,
     lastName: customer.attributes.lastName,
     shortName: customer.attributes.shortName,
-    countryId: 1,
-    country: { id: 1, name: '' },
+    countryId: customer.attributes.country.data.id,
+    country: {
+      id: customer.attributes.country.data.id,
+      name: customer.attributes.country.data.attributes.name,
+    },
     group: { id: 1, name: 'group' },
     managerRelationshipId: 1,
     managerRelationship: { id: 1, name: '' },

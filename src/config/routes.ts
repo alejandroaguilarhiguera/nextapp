@@ -3,6 +3,11 @@ export const API_AUTH_LOGIN = {
   method: 'post',
 };
 
+export const API_REQUEST_GET_COUNTRIES = {
+  path: '/countries',
+  method: 'get',
+};
+
 export const API_REQUEST_GET_CUSTOMERS = {
   path: '/customers',
   method: 'get',

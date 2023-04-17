@@ -7,8 +7,8 @@ export interface Customer {
   middleName: string | null;
   lastName: string | null;
   shortName: string | null;
-  countryId: number;
-  country: Country;
+  countryId?: number | null;
+  country?: Country;
   groupId: number;
   group: Group;
   managerRelationshipId: number;
@@ -21,10 +21,10 @@ export interface Customer {
 
 export interface NewCustomer {
   name?: string;
+  countryId?: number;
   middleName?: string;
   lastName: string;
   shortName?: string;
-  countryId: number;
   groupId: number;
   managerRelationshipId: number;
   licenseTypeId: number;
@@ -34,4 +34,5 @@ export interface NewCustomer {
 export interface EditCustomer {
   id: number;
   name: string;
+  countryId?: number | null;
 }

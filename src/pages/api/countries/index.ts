@@ -1,26 +1,30 @@
-import axios from 'axios';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { Country, ErrorRequest } from 'types';
-import { Payload } from '~/services/types';
-import { CountryAPI } from '~/services/types';
+export { default } from '~/services/api/countries';
+// import type { NextApiRequest, NextApiResponse } from 'next';
+// import { Country, ErrorRequest } from 'types';
+// import { API_REQUEST_GET_COUNTRIES } from '~/config/externalAPIRoutes';
+// import { CountryAPI } from '~/services/types';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Country[] | ErrorRequest>,
-) {
-  const { URL_API: url } = process.env;
+// export default async function handler(
+//   req: NextApiRequest,
+//   res: NextApiResponse<Country[] | ErrorRequest>,
+// ) {
+//   if (req.method !== 'GET') {
+//     return res.status(405).json({
+//       message: 'Method not allowed',
+//     });
+//   }
 
-  if (req.method !== 'GET') {
-    return res.status(405).json({
-      message: 'Method not allowed',
-    });
-  }
-  const {
-    data: { data },
-  } = await axios<Payload<CountryAPI[]>>({
-    url: `${url}/countries`,
-  });
-  const countries: Country[] = data?.map(({ id, attributes: { name } }) => ({ id, name }));
+//   const { URL_API: url } = process.env;
+//   const { method, path } = API_REQUEST_GET_COUNTRIES;
 
-  return res.status(200).json(countries);
-}
+//   const request = await fetch(`${url}${path}`, { method });
+//   if (!request.ok) {
+//     return res.status(503).json({
+//       message: 'Service is unavailable',
+//       status: 503,
+//     });
+//   }
+//   const { data }: { data: CountryAPI[] } = await request.json();
+//   const countries: Country[] = data?.map(({ id, attributes: { name } }) => ({ id, name }));
+//   return res.status(200).json(countries);
+// }

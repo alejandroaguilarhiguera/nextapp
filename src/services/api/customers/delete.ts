@@ -26,7 +26,7 @@ export default async function handler(
     middleName: data.attributes.middleName,
     lastName: data.attributes.lastName,
     shortName: data.attributes.shortName,
-    countryId: 1,
+    countryId: data.attributes.country.data.id,
     country: { id: 1, name: '' },
     group: { id: 1, name: 'group' },
     managerRelationshipId: 1,

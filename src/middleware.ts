@@ -15,7 +15,8 @@ export default async function middleware(req: NextRequest) {
   const role = ROLES.find(
     ({ type }) => type.toLocaleLowerCase() === String(session.role?.type).toLocaleLowerCase(),
   );
-  if (!role || !role.routes.includes(pathname)) {
+  const routeMatched = role?.routes.find((path) => pathname.includes(path));
+  if (!role || !routeMatched) {
     // forbidden validation
     const url = new URL('/403', req.url);
     return NextResponse.rewrite(url);

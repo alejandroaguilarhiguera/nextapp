@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import type { GetServerSideProps } from 'next';
 import { NextPage } from 'next';
 import { getServerSession } from 'next-auth/next';
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
   const url = process.env.URL_API;
   const { method, path } = API_REQUEST_GET_CUSTOMERS;
-  const request = await fetch(`${url}${path}`, {
+  const request = await fetch(`${url}${path}?populate=country`, {
     method,
     headers: {
       'Content-Type': 'application/json',
@@ -38,8 +38,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       middleName: customer.attributes.middleName,
       lastName: customer.attributes.lastName,
       shortName: customer.attributes.shortName,
-      countryId: 1,
-      country: { id: 1, name: '' },
+      countryId: customer.attributes.country.data?.id || null,
+      country: { id: 2, name: '' },
       group: { id: 1, name: 'group' },
       managerRelationshipId: 1,
       managerRelationship: { id: 1, name: '' },
@@ -63,10 +63,16 @@ const Listing: NextPage<Props> = ({ customers }: Props) => {
   return (
     <div>
       <Layout>
-        <Link href={'/customers/new'}>
-          <Button variant="contained">New client</Button>
-        </Link>
-        <Table />
+        <Grid container spacing={2}>
+          <Grid item>
+            <Link href={'/customers/new'}>
+              <Button variant="contained">New client</Button>
+            </Link>
+          </Grid>
+          <Grid item>
+            <Table />
+          </Grid>
+        </Grid>
       </Layout>
     </div>
   );

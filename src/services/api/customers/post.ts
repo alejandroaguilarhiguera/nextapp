@@ -10,14 +10,23 @@ export default async function handler(
 ) {
   const { URL_API: url } = process.env;
   const { authorization } = req.headers;
-
+  const dataRequest = {
+    ...req.body,
+    ...(req.body.countryId
+      ? {
+          country: {
+            connect: [{ id: req.body.countryId, position: { end: true } }],
+          },
+        }
+      : {}),
+  };
   const {
     data: { data },
   } = await axios<Payload<CustomerAPI>>({
     method: 'POST',
-    url: `${url}/customers`,
+    url: `${url}/customers?populate=country`,
     headers: { Authorization: authorization },
-    data: { data: req.body },
+    data: { data: dataRequest },
   });
   const customer: Customer = {
     id: data.id,
@@ -26,7 +35,7 @@ export default async function handler(
     middleName: data.attributes.middleName,
     lastName: data.attributes.lastName,
     shortName: data.attributes.shortName,
-    countryId: 1,
+    countryId: data.attributes.country.data.id,
     country: { id: 1, name: '' },
     group: { id: 1, name: 'group' },
     managerRelationshipId: 1,

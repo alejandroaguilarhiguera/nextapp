@@ -8,6 +8,16 @@ export const EXTERNAL_API_ME = {
   method: 'get',
 };
 
+export const API_REQUEST_GET_COUNTRIES = {
+  path: '/countries',
+  method: 'get',
+};
+
+export const API_REQUEST_SHOW_COUNTRY = {
+  path: '/countries/:id',
+  method: 'get',
+};
+
 export const API_REQUEST_GET_CUSTOMERS = {
   path: '/customers',
   method: 'get',

@@ -39,6 +39,7 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
+              <TableCell>Country</TableCell>
               <TableCell>Options</TableCell>
             </TableRow>
           </TableHead>
@@ -50,6 +51,9 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
               >
                 <TableCell component="th" scope="customer">
                   {customer.name}
+                </TableCell>
+                <TableCell component="th" scope="customer">
+                  {customer.country?.name}
                 </TableCell>
                 <TableCell component="th" scope="customer">
                   <IconButton
@@ -84,6 +88,7 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
           <Link href={`/customers/${customerId}`}>Details</Link>
         </MenuItem>
         <MenuItem
+          sx={{ color: 'red' }}
           onClick={async () => {
             setAnchorEl(null);
             const payload = await onDelete({ id: customerId });

@@ -8,17 +8,17 @@ import schema from '~/modules/customers/utils/editCustomerSchema';
 import request from '~/utils/request';
 
 export const useEditCustomer = (customer: Customer) => {
-  const [id] = useState(customer.id);
-  const [name] = useState(customer.name);
   useEffect(() => {
-    setValue('id', id);
-    setValue('name', name);
-  }, [customer?.id]);
+    setValue('id', customer.id);
+    setValue('name', customer.name);
+    setValue('countryId', customer.countryId);
+  }, [customer]);
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    getValues,
+    formState: { errors, isSubmitting, isSubmitSuccessful, isLoading },
   } = useForm<EditCustomer>({
     criteriaMode: 'all',
     resolver: yupResolver(schema),
@@ -34,6 +34,9 @@ export const useEditCustomer = (customer: Customer) => {
   };
 
   return {
+    isLoading,
+    setValue,
+    getValues,
     register,
     handleSubmit,
     errors,
