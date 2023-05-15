@@ -24,6 +24,8 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
+import { useTranslation } from '~/utils/i18n';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -76,6 +78,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
+  const { t } = useTranslation();
   const { data: session, status } = useSession();
   const email = session?.user?.email ?? '';
   const theme = useTheme();
@@ -141,7 +144,7 @@ const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Dashboard'} />
+                <ListItemText primary={t('Dashboard')} />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -152,7 +155,7 @@ const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
                 <ListItemIcon>
                   <InboxIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Customers'} />
+                <ListItemText primary={t('Customers')} />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -164,7 +167,7 @@ const LeftNavigation: React.FC<PropsWithChildren<Props>> = ({ children }) => {
               <ListItemIcon>
                 <MailIcon />
               </ListItemIcon>
-              <ListItemText primary={'Log out'} />
+              <ListItemText primary={t('log out')} />
             </ListItemButton>
           </ListItem>
         </List>

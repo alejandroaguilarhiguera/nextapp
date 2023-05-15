@@ -6,6 +6,7 @@ import EditForm from '~/modules/customers/components/EditForm';
 import useCustomer from '~/modules/customers/hooks/useCustomer';
 
 import Layout from '~/components/Layout';
+import { useTranslation } from '~/utils/i18n';
 
 interface Props {}
 const style = {
@@ -22,6 +23,7 @@ const style = {
 
 const Edit: NextPage<Props> = (props: Props) => {
   const router = useRouter();
+  const { t } = useTranslation();
   const id = Number(router.query.id);
   const { customer, isLoading, isValidating } = useCustomer(id);
   const [open, setOpen] = useState(true);
@@ -51,10 +53,10 @@ const Edit: NextPage<Props> = (props: Props) => {
               </Grid>
               <Grid item>
                 <Button disabled variant="outlined">
-                  Cancel
+                  {t('cancel')}
                 </Button>
                 <Button disabled variant="contained">
-                  Save
+                  {t('save')}
                 </Button>
               </Grid>
             </Grid>
@@ -75,7 +77,7 @@ const Edit: NextPage<Props> = (props: Props) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <EditForm onCloseModal={handleClose} customer={customer} title="Edit customer" />
+          <EditForm onCloseModal={handleClose} customer={customer} title={t('edit customer')} />
         </Box>
       </Modal>
     </Layout>

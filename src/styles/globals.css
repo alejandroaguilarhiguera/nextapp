@@ -99,6 +99,25 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.capitalize::first-letter {
+  text-transform: uppercase;
+}
+
+.MuiInputLabel-root::first-letter {
+  text-transform: uppercase;
+}
+
+.MuiTableCell-head::first-letter {
+  text-transform: uppercase;
+}
+
+.MuiMenuItem-gutters a::first-letter {
+  text-transform: uppercase;
+}
+
+.MuiMenuItem-gutters::first-letter {
+  text-transform: uppercase;
+}
 
 @media (prefers-color-scheme: dark) {
   html {

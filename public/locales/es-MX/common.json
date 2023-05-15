@@ -1,0 +1,21 @@
+{
+    "email":"email",
+    "password":"contraseña",
+    "new client":"nuevo cliente",
+    "enter":"entrar",
+    "name":"nombre",
+    "country":"país",
+    "options":"opciones",
+    "edit":"editar",
+    "delete":"eliminar",
+    "details":"detalles",
+    "cancel":"cancelar",
+    "save":"guardar",
+    "error":"error",
+    "log out":"Salir",
+    "dashboard":"tablero",
+    "customers":"clientes",
+    "new customer": "nuevo cliente",
+    "edit customer": "editar cliente",
+    "choose an option":"elegir una opción"
+}

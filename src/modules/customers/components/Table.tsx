@@ -10,18 +10,20 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from '@mui/material';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 import { mutate } from 'swr';
 import useCustomers from '~/modules/customers/hooks/useCustomers';
 import useDeleteCustomer from '~/modules/customers/hooks/useDeleteCustomer';
 
+import { useTranslation } from '~/utils/i18n';
+
 interface CustomerTableProps {}
 
 const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) => {
-  const { data: session, status } = useSession();
+  const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [customerId, setCustomerId] = React.useState<number>(0);
   const handleClose = () => {
@@ -38,9 +40,9 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Country</TableCell>
-              <TableCell>Options</TableCell>
+              <TableCell>{t('name')}</TableCell>
+              <TableCell>{t('country')}</TableCell>
+              <TableCell>{t('options')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,10 +84,10 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
         onClose={handleClose}
       >
         <MenuItem>
-          <Link href={`/customers/edit/${customerId}`}>Edit</Link>
+          <Link href={`customers/edit/${customerId}`}>{t('edit')}</Link>
         </MenuItem>
         <MenuItem>
-          <Link href={`/customers/${customerId}`}>Details</Link>
+          <Link href={`customers/${customerId}`}>{t('details')}</Link>
         </MenuItem>
         <MenuItem
           sx={{ color: 'red' }}
@@ -101,7 +103,7 @@ const CustomerTable: React.FC<CustomerTableProps> = (props: CustomerTableProps) 
             }
           }}
         >
-          Delete
+          <Typography className="capitalize">{t('delete')}</Typography>
         </MenuItem>
       </Menu>
     </>

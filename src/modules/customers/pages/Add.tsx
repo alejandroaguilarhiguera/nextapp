@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import NewForm from '~/modules/customers/components/NewForm';
 
 import Layout from '~/components/Layout';
+import { useTranslation } from '~/utils/i18n';
 
 const style = {
   position: 'absolute',
@@ -21,6 +22,7 @@ const style = {
 interface Props {}
 
 const Add: NextPage<Props> = (props: Props) => {
+  const { t } = useTranslation();
   const router = useRouter();
   const [open, setOpen] = useState(true);
   const handleOpen = () => setOpen(true);
@@ -37,7 +39,7 @@ const Add: NextPage<Props> = (props: Props) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <NewForm onCloseModal={handleClose} title="New customer" />
+          <NewForm onCloseModal={handleClose} title={t('New customer')} />
         </Box>
       </Modal>
     </Layout>

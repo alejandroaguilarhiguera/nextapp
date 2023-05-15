@@ -5,18 +5,21 @@ import Details from '~/modules/customers/components/Details';
 import useCustomer from '~/modules/customers/hooks/useCustomer';
 
 import Layout from '~/components/Layout';
+import { useTranslation } from '~/utils/i18n';
 
 interface Props {}
 
 const Show: NextPage<Props> = (props: Props) => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const id = Number(router.query.id);
   const { customer, isLoading } = useCustomer(id);
   if (isLoading) {
-    return <>Loading ...</>;
+    return <>{t('loading')} ...</>;
   }
   if (!customer) {
-    return <>Error </>;
+    return <>{t('error')} </>;
   }
   return (
     <Layout>

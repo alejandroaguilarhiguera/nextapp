@@ -13,6 +13,8 @@ import useCountries from '~/hooks/useCountries';
 import useEditCustomer from '~/modules/customers/hooks/useEditCustomer';
 import { Customer } from '~/modules/customers/types';
 
+import { useTranslation } from '~/utils/i18n';
+
 interface EditFormProps {
   customer: Customer;
   title?: string;
@@ -20,7 +22,8 @@ interface EditFormProps {
 }
 
 const EditForm: React.FC<EditFormProps> = (props: EditFormProps) => {
-  const { title = 'Edit customer', onCloseModal } = props;
+  const { t } = useTranslation();
+  const { title = t('edit customer'), onCloseModal } = props;
   const { register, getValues, errors, onSubmit, isSubmitSuccessful } = useEditCustomer(
     props.customer,
   );
@@ -29,7 +32,7 @@ const EditForm: React.FC<EditFormProps> = (props: EditFormProps) => {
     isSubmitSuccessful && onCloseModal();
   }, [isSubmitSuccessful]);
 
-  if (!getValues('countryId')) return <>loading</>;
+  if (!getValues('countryId')) return <>{t('loading')}</>;
   return (
     <form onSubmit={onSubmit}>
       <FormGroup>
@@ -38,7 +41,7 @@ const EditForm: React.FC<EditFormProps> = (props: EditFormProps) => {
             <TextField
               {...register('name')}
               id="name"
-              label="Name"
+              label={t('name')}
               type="name"
               error={!!errors.name?.message}
               helperText={errors.name?.message}
@@ -46,17 +49,17 @@ const EditForm: React.FC<EditFormProps> = (props: EditFormProps) => {
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <InputLabel id={'countryId'}>Country</InputLabel>
+              <InputLabel id={'countryId'}>{t('country')}</InputLabel>
               <Select
                 {...register('countryId')}
                 labelId="countryId"
-                label="Country"
+                label={t('country')}
                 sx={{ width: '270px' }}
                 required
                 defaultValue={getValues('countryId')}
                 error={!!errors.countryId}
               >
-                <MenuItem value={''}>Choose an option</MenuItem>
+                <MenuItem value={''}>{t('choose an option')}</MenuItem>
                 {countries?.map(({ id, name }) => (
                   <MenuItem key={id} value={id.toString()}>
                     {name}
@@ -67,10 +70,10 @@ const EditForm: React.FC<EditFormProps> = (props: EditFormProps) => {
           </Grid>
           <Grid item>
             <Button onClick={onCloseModal} variant="outlined">
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit" variant="contained">
-              Save
+              {t('save')}
             </Button>
           </Grid>
         </Grid>

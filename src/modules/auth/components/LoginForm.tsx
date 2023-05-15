@@ -2,11 +2,13 @@ import { Button, FormGroup, Grid, Paper, TextField } from '@mui/material';
 import React from 'react';
 import useDoLogin from '~/modules/auth/hooks/useDoLogin';
 
+import { useTranslation } from '~/utils/i18n';
+
 interface LoginFormProps {}
 
 const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
+  const { t } = useTranslation();
   const { register, errors, onSubmit } = useDoLogin();
-
   return (
     <form onSubmit={onSubmit}>
       <FormGroup>
@@ -17,7 +19,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
                 fullWidth
                 {...register('identifier')}
                 id="identifier"
-                label="Email"
+                label={t('email')}
                 type="email"
                 error={!!errors.identifier?.message}
                 helperText={errors.identifier?.message}
@@ -28,7 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
                 fullWidth
                 {...register('password')}
                 id="password"
-                label="Password"
+                label={t('password')}
                 type="password"
                 error={!!errors.password?.message}
                 helperText={errors.password?.message}
@@ -36,7 +38,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             </Grid>
             <Grid item>
               <Button fullWidth type="submit" variant="contained">
-                Enter
+                {t('enter')}
               </Button>
             </Grid>
           </Grid>

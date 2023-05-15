@@ -21,7 +21,7 @@ const Details: React.FC<DetailsProps> = ({ customer }: DetailsProps) => {
           {fullName}
         </Typography>
         <Typography variant="h5" component="div">
-          {customer.country.name}
+          {customer.country?.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {customer.group.name}
