@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "~11.10.6",
@@ -38,5 +40,8 @@
     "swr": "~2.1.1",
     "typescript": "5.0.3",
     "yup": "~1.0.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.3"
   }
 }
